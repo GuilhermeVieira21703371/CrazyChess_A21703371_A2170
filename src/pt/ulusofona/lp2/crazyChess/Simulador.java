@@ -1,13 +1,13 @@
 package pt.ulusofona.lp2.crazyChess;
-import java.util.Scanner;
+import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 public class Simulador {
     int tamanhoTabuleiro;
     int nmrPecas;
     int[][] tabuleiro;
+    List<CrazyPiece>  listaPecas = new ArrayList<>();
 
 
     public Simulador(){
@@ -21,7 +21,7 @@ public class Simulador {
             File ficheiro = new File(nomeFicheiro);
             Scanner leitorFicheiro = new Scanner(ficheiro);
             int linhasLidas = 0;
-            int matrix_line = 0;
+            int linhaslidas2 = 0;
 
             while(leitorFicheiro.hasNextLine()) {
 
@@ -36,6 +36,8 @@ public class Simulador {
                     String alcunha = dados[3];
 
                     CrazyPiece pecaMaluca = new CrazyPiece(ID_peca, ID_tipoPeca, ID_equipa, alcunha);
+                    listaPecas.add(pecaMaluca);
+
                 } else if(linhasLidas == 0) {
                     tamanhoTabuleiro = Integer.parseInt(dados[0]);
 
@@ -44,6 +46,20 @@ public class Simulador {
 
                 } else {
 
+                    for(int i = 0; i < tamanhoTabuleiro; i++) {
+                        int tempData = Integer.parseInt(dados[i]);
+                        tabuleiro[linhaslidas2][i] = tempData;
+                        if(tempData != 0) {
+                            for (CrazyPiece pecaMaluca : listaPecas) {
+                                if(tempData == pecaMaluca.getID()) {
+                                    pecaMaluca.setPos(i, linhaslidas2);
+                                }
+                            }
+                        }
+
+                    }
+                    linhaslidas2++;
+
 
                     }
                 linhasLidas++;
@@ -51,12 +67,8 @@ public class Simulador {
             leitorFicheiro.close();
         }
         catch(FileNotFoundException exception) {
-            String mensagem = "Erro: o ficheiro " + nomeFicheiro + " nao foi encontrado. ";
-            System.out.println(mensagem);
             return false;
         }
-
-
 
         return true;
 
@@ -73,6 +85,7 @@ public class Simulador {
     }
 
     public List<CrazyPiece> getPecasMalucas() {
+        return listaPecas;
 
     }
 
@@ -82,12 +95,17 @@ public class Simulador {
     }
 
     public List<String> getAutores(){
+        List<String> autores = new ArrayList<>();
+        autores.add("Guilherme Vieira");
+        autores.add("Xiaoyue Xie");
+        return autores;
 
     }
 
-    public List<String> getResultados()  {
 
-    }
+    //public List<String> getResultados()  {
+
+    //}
 
     public int getIDPeca(int x, int y) {
         return 1;

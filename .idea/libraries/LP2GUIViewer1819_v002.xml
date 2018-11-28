@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="LP2GUIViewer1819-v002">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Documents/LP2GUIViewer1819-v002.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/LP2GUIViewer1819-v002.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
